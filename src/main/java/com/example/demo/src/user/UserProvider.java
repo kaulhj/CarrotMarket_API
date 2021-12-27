@@ -41,6 +41,12 @@ public class UserProvider {
 
     // 로그인(password 검사)
     public PostLoginRes logIn(PostLoginReq postLoginReq) throws BaseException {
+        try{
+            User user = userDao.getPwd(postLoginReq);
+        }catch(Exception ignored){
+            throw new BaseException(EMPTY_EMAIL);
+        }
+
         User user = userDao.getPwd(postLoginReq);
         String password;
         try {
