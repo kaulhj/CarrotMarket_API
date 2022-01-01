@@ -61,6 +61,7 @@ public class user_1Service {
             int userIdx = userDao1.createUser1(postUserReq1);
             return new Postuser_1Res(userIdx);
         } catch (Exception exception) { // DB에 이상이 있는 경우 에러 메시지를 보냅니다.
+            exception.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
         }
     }
@@ -72,6 +73,7 @@ public class user_1Service {
                 throw new BaseException(MODIFY_FAIL_USEREMAIL);
             }
         } catch (Exception exception) {
+            exception.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
         }
     }
@@ -83,6 +85,7 @@ public class user_1Service {
                 throw new BaseException(MODIFY_FAIL_PROFILEIMG);
             }
         }catch(Exception exception){
+            exception.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
         }
 
@@ -97,6 +100,7 @@ public class user_1Service {
                 throw new BaseException(CHANGE_FAIL_ADDRESS);
             }
         }catch (Exception exception){
+            exception.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
         }
     };

@@ -43,6 +43,7 @@ public class user_1Provider {
         try {
             return userDao1.checkEmail1(email);
         } catch (Exception exception) {
+            exception.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
         }
     }
@@ -51,6 +52,7 @@ public class user_1Provider {
         try {
             return userDao1.checkNickname(nickname);
         } catch (Exception exception) {
+            exception.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
         }
     }
@@ -83,6 +85,7 @@ public class user_1Provider {
             Getuser_1Res getuser1Res = userDao1.getUser(userId);
             return getuser1Res;
         } catch (Exception exception) {
+            exception.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
         }
     }
@@ -94,6 +97,7 @@ public class user_1Provider {
             List<Getuser_1Res> getuser_1Res = userDao1.getUsersByAddress(address);
             return getuser_1Res;
         } catch (Exception exception) {
+            exception.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
         }
 
@@ -104,6 +108,7 @@ public class user_1Provider {
             List<Getuser_1Res> getuser_1Res = userDao1.getUsers();
             return getuser_1Res;
         } catch (Exception exception) {
+            exception.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
         }
     }
@@ -147,6 +152,7 @@ public class user_1Provider {
             List<GetCompProdRes> getCompProdRes = userDao1.getCompProdsByNickname(nickname);
             return getCompProdRes;
         }catch (Exception exception){
+            exception.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
         }
     }
