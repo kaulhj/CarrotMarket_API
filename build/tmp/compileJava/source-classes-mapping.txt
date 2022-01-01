@@ -1,44 +1,76 @@
-com/example/demo/src/user/model/PostLoginReq.java
- com.example.demo.src.user.model.PostLoginReq
-com/example/demo/src/user/model/PostUserReq.java
- com.example.demo.src.user.model.PostUserReq
+com/example/demo/src/user_1/model/user_1.java
+ com.example.demo.src.user_1.model.user_1
+com/example/demo/src/user_1/model/PatchUemailRes.java
+ com.example.demo.src.user_1.model.PatchUemailRes
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
-com/example/demo/config/secret/Secret.java
- com.example.demo.config.secret.Secret
-com/example/demo/src/user/model/PostUserRes.java
- com.example.demo.src.user.model.PostUserRes
-com/example/demo/src/WebSecurityConfig.java
- com.example.demo.src.WebSecurityConfig
-com/example/demo/utils/ValidationRegex.java
- com.example.demo.utils.ValidationRegex
-com/example/demo/src/user/model/GetUserRes.java
- com.example.demo.src.user.model.GetUserRes
-com/example/demo/src/user/model/PostLoginRes.java
- com.example.demo.src.user.model.PostLoginRes
-com/example/demo/src/user/model/User.java
- com.example.demo.src.user.model.User
-com/example/demo/src/user/UserDao.java
- com.example.demo.src.user.UserDao
 com/example/demo/DemoApplication.java
  com.example.demo.DemoApplication
+com/example/demo/src/user_1/model/PostLoginRes1.java
+ com.example.demo.src.user_1.model.PostLoginRes1
+com/example/demo/src/user_1/model/Getuser_1Res.java
+ com.example.demo.src.user_1.model.Getuser_1Res
+com/example/demo/src/user_1/model/GetHomeInfoRes.java
+ com.example.demo.src.user_1.model.GetHomeInfoRes
+com/example/demo/src/user_1/User_1Dao.java
+ com.example.demo.src.user_1.User_1Dao
+com/example/demo/src/user_1/model/PatchUemailReq.java
+ com.example.demo.src.user_1.model.PatchUemailReq
+com/example/demo/src/user_1/model/GetCompProdRes.java
+ com.example.demo.src.user_1.model.GetCompProdRes
 com/example/demo/utils/AES128.java
  com.example.demo.utils.AES128
+com/example/demo/src/user_1/model/Postuser_1Req.java
+ com.example.demo.src.user_1.model.Postuser_1Req
+com/example/demo/src/WebSecurityConfig.java
+ com.example.demo.src.WebSecurityConfig
+com/example/demo/src/user_1/model/GetProdetailRes.java
+ com.example.demo.src.user_1.model.GetProdetailRes
 com/example/demo/src/test/TestController.java
  com.example.demo.src.test.TestController
-com/example/demo/src/user/model/PatchUserReq.java
- com.example.demo.src.user.model.PatchUserReq
-com/example/demo/src/user/UserService.java
- com.example.demo.src.user.UserService
-com/example/demo/config/BaseResponseStatus.java
- com.example.demo.config.BaseResponseStatus
+com/example/demo/src/user_1/model/Postuser_1Res.java
+ com.example.demo.src.user_1.model.Postuser_1Res
+com/example/demo/src/user_1/model/PostLoginReq1.java
+ com.example.demo.src.user_1.model.PostLoginReq1
+com/example/demo/src/user_1/model/PatchprofImgReq.java
+ com.example.demo.src.user_1.model.PatchprofImgReq
+com/example/demo/src/user_1/model/PatchUAddressReq.java
+ com.example.demo.src.user_1.model.PatchUAddressReq
+com/example/demo/config/secret/Secret.java
+ com.example.demo.config.secret.Secret
+com/example/demo/src/Product/model/PostProRegRes.java
+ com.example.demo.src.Product.model.PostProRegRes
+com/example/demo/utils/ValidationRegex.java
+ com.example.demo.utils.ValidationRegex
+com/example/demo/src/Product/model/PostProRegReq.java
+ com.example.demo.src.Product.model.PostProRegReq
+com/example/demo/src/Product/model/PostProChatReq.java
+ com.example.demo.src.Product.model.PostProChatReq
+com/example/demo/src/Product/model/PostProChatRes.java
+ com.example.demo.src.Product.model.PostProChatRes
+com/example/demo/src/user_1/user_1Controller.java
+ com.example.demo.src.user_1.user_1Controller
+com/example/demo/src/Product/model/PostProLikeReq.java
+ com.example.demo.src.Product.model.PostProLikeReq
+com/example/demo/src/user_1/user_1Provider.java
+ com.example.demo.src.user_1.user_1Provider
 com/example/demo/config/BaseException.java
  com.example.demo.config.BaseException
-com/example/demo/src/user/UserController.java
- com.example.demo.src.user.UserController
-com/example/demo/utils/JwtService.java
- com.example.demo.utils.JwtService
-com/example/demo/src/user/UserProvider.java
- com.example.demo.src.user.UserProvider
+com/example/demo/src/user_1/user_1Service.java
+ com.example.demo.src.user_1.user_1Service
 com/example/demo/config/BaseResponse.java
  com.example.demo.config.BaseResponse
+com/example/demo/utils/JwtService.java
+ com.example.demo.utils.JwtService
+com/example/demo/src/Product/model/PostProLikeRes.java
+ com.example.demo.src.Product.model.PostProLikeRes
+com/example/demo/config/BaseResponseStatus.java
+ com.example.demo.config.BaseResponseStatus
+com/example/demo/src/Product/ProductProvider.java
+ com.example.demo.src.Product.ProductProvider
+com/example/demo/src/Product/ProductController.java
+ com.example.demo.src.Product.ProductController
+com/example/demo/src/Product/ProductDao.java
+ com.example.demo.src.Product.ProductDao
+com/example/demo/src/Product/ProductService.java
+ com.example.demo.src.Product.ProductService
