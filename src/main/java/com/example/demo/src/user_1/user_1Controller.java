@@ -97,6 +97,10 @@ public class user_1Controller {
         }
 
         try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(userId !=userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
             PatchUemailReq patchUemailReq = new PatchUemailReq(userId, user1.getUseremail());
             userService1.modifyUserEmail(patchUemailReq);
 
@@ -225,6 +229,21 @@ public class user_1Controller {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    @ResponseBody
+    @DeleteMapping("/delete/{userId}")
+    public BaseResponse<String> deleteUser(@PathVariable("userId") int userId){
+    try{
+        userService1.deleteUser(userId);
+
+        String result = "회원탈퇴가 성공적으로 진행되었습니다.";
+        return new BaseResponse<>(result);
+    }catch (BaseException exception){
+        exception.printStackTrace();
+        return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
 }
 
 

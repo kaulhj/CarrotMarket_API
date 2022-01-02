@@ -5,6 +5,7 @@ import com.example.demo.config.secret.Secret;
 import com.example.demo.src.user_1.model.*;
 import com.example.demo.utils.AES128;
 import com.example.demo.utils.JwtService;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,10 @@ public class user_1Service {
 
         try {
             int userIdx = userDao1.createUser1(postUserReq1);
-            return new Postuser_1Res(userIdx);
+            String jwt = jwtService1.createJwt(userIdx);
+            return new Postuser_1Res(userIdx, jwt);
+
+            //return new Postuser_1Res(userIdx);
         } catch (Exception exception) { // DB에 이상이 있는 경우 에러 메시지를 보냅니다.
             exception.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
@@ -104,5 +108,19 @@ public class user_1Service {
             throw new BaseException(DATABASE_ERROR);
         }
     };
+
+
+    //19.유저 회원탈퇴
+    public void deleteUser(int userId) throws BaseException{
+        try{
+            int result = userDao1.deleteUser(userId);
+            if(result != userId){
+                throw new BaseException(DELETE_FAIL_USER);
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 
 }

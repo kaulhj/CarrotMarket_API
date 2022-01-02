@@ -71,8 +71,10 @@ public enum BaseResponseStatus {
     AHTOURNUM_ENCRYPTION_ERROR(false,4013,"인증번호 암호화에 실패하였습니다."),
     MODIFY_FAIL_USERNAME(false,4014,"유저네임 수정 실패"),
     AUTH_DECRYPTION_ERROR(false,4015,"인증번호 복호화에 실패하였습니다"),
-    CHANGE_FAIL_ADDRESS(false,4016,"주소 변경에 실패하였습니다.");
-
+    CHANGE_FAIL_ADDRESS(false,4016,"주소 변경에 실패하였습니다."),
+    MODIFY_FAIL_PRODUCT(false, 4017, "상품 수정에 실패하였습니다."),
+    DELETE_FAIL_PRODUCT(false,4018,"상품 삭제에 실패하였습니다."),
+    DELETE_FAIL_USER(false,4019,"회원탈퇴에 실패하였습니다");
     // 5000 : 필요시 만들어서 쓰세요
     // 6000 : 필요시 만들어서 쓰세요
 

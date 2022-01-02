@@ -48,4 +48,23 @@ public class ProductProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public List<GetBuyListRes> getBuyList(int userId) throws BaseException{
+        try{
+            List<GetBuyListRes> getBuyListRes = productDao.getBuyListByUId(userId);
+            return getBuyListRes;
+        }catch (Exception exception){
+            exception.printStackTrace();
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+    public List<GetCatProRes> getProByCategory( String category)throws BaseException{
+        try{
+            List<GetCatProRes> getCatProRes = productDao.getCatProByUId(category);
+            return getCatProRes;
+        }catch (Exception exception){
+            exception.printStackTrace();
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

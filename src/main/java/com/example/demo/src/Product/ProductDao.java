@@ -26,6 +26,7 @@ public class ProductDao {
 
     private JdbcTemplate jdbcTemplate;
 
+
     //public static int authennum = 1000; //인증번호 초기값
     @Autowired //readme 참고
     public void setDataSource(DataSource dataSource) {
@@ -88,19 +89,100 @@ public class ProductDao {
                 ,SuccessTextParams))+quotes+" 이 관심목록에 등록되었습니다");
     }
 
+    public int modifyProduct(PatchProdReq patchProdReq){
+        String modifyProdQuery = "update product  set  " +
+                "productMainImg= ?, " +
+                "productName =?, " +
+                "categoryId = ?," +
+                "price = ?, " +
+                "price_suggest = ?," +
+                "useAgeId =?, " +
+                "status =? where productId = ? limit 1";
+
+        Object[] modifyProdParams = new Object[]{
+                patchProdReq.getProductMainImg(),patchProdReq.getProductName(),
+                patchProdReq.getCategoryId(), patchProdReq.getPrice(),
+                patchProdReq.getPrice_suggest(), patchProdReq.getUse_ageId(),
+                patchProdReq.getStatus(),patchProdReq.getProductId()};
+
+
+        return this. jdbcTemplate.update(modifyProdQuery, modifyProdParams);
+    }
+
+    public int deleteProd(int productId){
+        String DeleteProdQuery = "delete from product where productId = ? ";
+        int DeleteProdParams = productId;
+
+        this.jdbcTemplate.update(DeleteProdQuery,DeleteProdParams);
+
+        return productId;
+    }
+
+    public List<GetBuyListRes> getBuyListByUId(int userId){
+        String getBuyListQuery = "SELECT p.productId, p.productName, CONCAT(price, '원')as price, productMainImg,\n" +
+                "                       U.address, p.status,p.Likes,U.nickname,b.userId,count(c.productId)as comments,\n" +
+                "                     (CASE\n" +
+                "                            WHEN TIMESTAMPDIFF(MINUTE, p.updateAt, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, p.updateAt, NOW()), '분 전')\n" +
+                "                          WHEN TIMESTAMPDIFF(HOUR, p.updateAT, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, p.updateAt, NOW()), '시간 전')\n" +
+                "                           WHEN TIMESTAMPDIFF(DAY, p.updateAt, NOW()) <30 THEN CONCAT(TIMESTAMPDIFF(DAY, p.updateAt, NOW()), '일 전')\n" +
+                "                           END) AS time\n" +
+                "\n" +
+                "                FROM product as p\n" +
+                "                LEFT OUTER JOIN chats as c on c.productId= p.productId\n" +
+                "                LEFT JOIN user_1 U on U.userId  = p.userId\n" +
+                "                INNER JOIN BuyTransaction b on p.buyId = b.buyId\n" +
+                "                where b.userId =? AND\n" +
+                "                 p.status = 'COMPLETE'\n" +
+                "                GROUP BY p.productId" +
+                "                ORDER BY productId";
+        int getBuyListParams = userId;
+        return this.jdbcTemplate.query(getBuyListQuery,
+                (rs,rowNum) -> new GetBuyListRes(
+                        rs.getInt("productId"),
+                        rs.getString("productMainImg"),
+                        rs.getString("productName"),
+                        rs.getString("address"),
+                        rs.getString("time"),
+                        rs.getString("status"),
+                        rs.getString("price"),
+                        rs.getInt("comments"),
+                        rs.getInt("Likes")),
+                        getBuyListParams);
+    }
 
 
 
+    //.해당카테고리의 상품 조회
 
-
-
-
-
-
-
-
-
-
-
+    public List<GetCatProRes> getCatProByUId(String category){
+        String getCatProByUIdQuery = "select p.productId,c.category,\n" +
+                "               productName,productMainImg,\n" +
+                "              u.address,\n" +
+                "               (CASE\n" +
+                "                            WHEN TIMESTAMPDIFF(MINUTE, p.updateAt, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, p.updateAt, NOW()), '분 전')\n" +
+                "                          WHEN TIMESTAMPDIFF(HOUR, p.updateAT, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, p.updateAt, NOW()), '시간 전')\n" +
+                "                           WHEN TIMESTAMPDIFF(DAY, p.updateAt, NOW()) <30 THEN CONCAT(TIMESTAMPDIFF(DAY, p.updateAt, NOW()), '일 전')\n" +
+                "                           END) AS time,\n" +
+                "               price,\n" +
+                "                count(c1.productId)as comments,\n" +
+                "               Likes\n" +
+                "            from product p\n" +
+                "            LEFT JOIN chats c1 on c1.productId = p.productId\n" +
+                "LEFT JOIN Category c on c.categoryId = p.categoryId\n" +
+                "LEFT JOIN user_1 u on u.userId = p.userId\n" +
+                "where c.category = ? \n" +
+                "GROUP BY p.productId";
+        String getCatProByUIdParams = category;
+        return this.jdbcTemplate.query(getCatProByUIdQuery,
+                (rs,rowNum) -> new GetCatProRes(
+                        rs.getString("category"),
+                        rs.getString("productMainImg"),
+                        rs.getString("time"),
+                        rs.getString("price"),
+                        rs.getInt("comments"),
+                        rs.getInt("Likes")
+                ),
+                getCatProByUIdParams);
+    }
 
 }

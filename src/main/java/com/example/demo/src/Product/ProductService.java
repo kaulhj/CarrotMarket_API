@@ -72,5 +72,29 @@ public class ProductService {
         }
     }
 
+    public void modifyProduct(PatchProdReq patchProdReq)throws BaseException{
+        try{
+            int result = productDao.modifyProduct(patchProdReq);
+            if(result == 0){
+                throw new BaseException(MODIFY_FAIL_PRODUCT);
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public void deleteProd(int productId) throws BaseException{
+        try{
+            int result = productDao.deleteProd(productId);
+            if(result != productId){
+                throw new BaseException(DELETE_FAIL_PRODUCT);
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
 
 }

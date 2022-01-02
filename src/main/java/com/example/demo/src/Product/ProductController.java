@@ -1,7 +1,5 @@
 package com.example.demo.src.Product;
 
-import com.example.demo.src.user_1.user_1Provider;
-import com.example.demo.src.user_1.user_1Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.example.demo.config.BaseException;
@@ -11,10 +9,10 @@ import com.example.demo.utils.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.src.Product.model.PostProRegReq;
+
 import java.util.List;
 
 import static com.example.demo.config.BaseResponseStatus.*;
-import static com.example.demo.utils.ValidationRegex.isRegexphonenum;
 
 
 @RestController
@@ -36,7 +34,7 @@ public class ProductController {
     @Autowired
     private final JwtService jwtService; // JWT부분은 7주차에 다루므로 모르셔도 됩니다!
 
-    public ProductController(ProductProvider productProvider, ProductService productService,JwtService jwtService) {
+    public ProductController(ProductProvider productProvider, ProductService productService, JwtService jwtService) {
         this.productProvider = productProvider;
         this.productService = productService;
         this.jwtService = jwtService; // JWT부분은 7주차에 다루므로 모르셔도 됩니다!
@@ -47,14 +45,14 @@ public class ProductController {
     //13. 상품 등록하기
     @ResponseBody
     @PostMapping("/register")
-    public BaseResponse<PostProRegRes> registerProd(@RequestBody PostProRegReq postProRegReq){
-        if(postProRegReq.getProductName() == null){
+    public BaseResponse<PostProRegRes> registerProd(@RequestBody PostProRegReq postProRegReq) {
+        if (postProRegReq.getProductName() == null) {
             return new BaseResponse<>(POST_PRODUCT_EMPTY_PRODUCTNAME);
         }
-        try{
+        try {
             PostProRegRes postProRegRes = productService.registerProd(postProRegReq);
             return new BaseResponse<>(postProRegRes);
-        }catch(BaseException exception){
+        } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
@@ -62,15 +60,15 @@ public class ProductController {
     //14.해당상품에 거래 채팅보내기
     @ResponseBody
     @PostMapping("/chat-deal")
-    public BaseResponse<PostProChatRes> createChatDeal(@RequestBody PostProChatReq postProChatReq){
+    public BaseResponse<PostProChatRes> createChatDeal(@RequestBody PostProChatReq postProChatReq) {
 
-        if(postProChatReq.getChatDetail() == null){
+        if (postProChatReq.getChatDetail() == null) {
             return new BaseResponse<>(POST_PRODUCT_EMPTY_SENDCHAT);
         }
-        try{
+        try {
             PostProChatRes postProChatRes = productService.createChatDeal(postProChatReq);
             return new BaseResponse<>(postProChatRes);
-        }catch (BaseException exception){
+        } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
@@ -85,12 +83,75 @@ public class ProductController {
         try {
             PostProLikeRes postProLikeRes = productService.register_Like(postProLikeReq);
             return new BaseResponse<>(postProLikeRes);
-        }catch (BaseException exception){
-        return new BaseResponse<>(exception.getStatus());
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
+    //16.유저의 판매중인 상품 수정
+    @ResponseBody
+    @PatchMapping("/{productId}")
+    public BaseResponse<String> modifyProduct(@PathVariable("productId") int productId, @RequestBody
+            Product product) {
+        try {
+
+            PatchProdReq patchProdReq = new PatchProdReq(productId, product.getProductMainImg(),
+                    product.getProductName(), product.getCategoryId(), product.getPrice(),
+                    product.getPrice_suggest(), product.getUse_ageId(), product.getStatus());
+            productService.modifyProduct(patchProdReq);
+
+            String result = "상품정보가 수정되었습니다.";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
         }
     }
 
 
+    //. 17판매중인 상품  삭제하기
+    @ResponseBody
+    @DeleteMapping("/delete/{productId}")
+    public BaseResponse<String> deleteProd(@PathVariable("productId") int productId) {
+        try {
+            DeleteProdReq deleteProdReq1 = new DeleteProdReq(productId);
+            productService.deleteProd(productId);
+
+            String result = "해당 상품이 상품목록에서 삭제되었습니다.";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            exception.printStackTrace();
+            return new BaseResponse<>(exception.getStatus());
+        }
 
 
+    }
+
+    //18. 해당유저의 구매내역 조회
+    @ResponseBody
+    @GetMapping("/BuyList")
+    public BaseResponse<List<GetBuyListRes>> getBuyList(@RequestParam(required = true)
+                                                                int userId) {
+        try {
+
+            List<GetBuyListRes> getBuyListRes = productProvider.getBuyList(userId);
+            return new BaseResponse<>(getBuyListRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
+
+    }
+
+
+    //20. 해당 카테고리의 상품 조회
+    @ResponseBody
+    @GetMapping("")
+    public BaseResponse<List<GetCatProRes>> getProByCategory(@RequestParam(required = true)
+                                                             String category){
+        try{
+            List<GetCatProRes> getCatProRes = productProvider.getProByCategory(category);
+            return new BaseResponse<>(getCatProRes);
+        }catch (BaseException exception){
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
 }
